@@ -1,9 +1,14 @@
-from app.ui.menu import menu
+from fastapi import FastAPI
+from typing import Union
+
+app = FastAPI()
 
 
-def main():
-    menu()
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
 
 
-if __name__ == "__main__":
-    main()
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Union[str, None] = None):
+    return {"item_id": item_id, "q": q}
